@@ -2,7 +2,7 @@
   "name": "qmapin",
   "version": "0.0.1",
   "description": "qusar app of map in",
-  "productName": "Quasar App",
+  "productName": "QMapIn",
   "author": "babdenour <abde1802@hotmail.fr>",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "crc-32": "^1.2.0",
     "quasar": "^2.0.0",
     "vuex": "^4.0.1"
   },
@@ -21,7 +22,9 @@
     "@quasar/app": "^3.0.0",
     "eslint": "^7.14.0",
     "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0"
   },

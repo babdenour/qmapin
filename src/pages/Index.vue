@@ -1,17 +1,21 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
-  </q-page>
+  <List :data="ListTotal" class="q-pa-sm" />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import ListTotal from 'src/utils/listTotal';
+import List from 'components/List.vue';
 
 export default defineComponent({
   name: 'PageIndex',
+  components: {
+    List,
+  },
+  data() {
+    return {
+      ListTotal,
+    };
+  },
 });
 </script>

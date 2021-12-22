@@ -1,2 +1,3 @@
-export function someMutation(/* state */) {
+export function NEW_DESTINATION(state, brandName) {
+  state.destination.brandName = brandName;
 }

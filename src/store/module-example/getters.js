@@ -1,2 +1,3 @@
-export function someGetter(/* state */) {
+export function destination(state) {
+  return state.destination.brandName;
 }
