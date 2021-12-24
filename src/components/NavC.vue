@@ -1,69 +1,54 @@
 <template>
   <div class="nav">
-    <div class="nav__btn">
-      <router-link to="/direction">
-        <img src="../assets/icone-gps.png" alt="gps" />
-      </router-link>
-
-      <router-link to="/destination">
-        <img src="../assets/icone-liste.png" alt="logo" />
-      </router-link>
-    </div>
     <div class="nav__autocomplete">
-      <div class="q-gutter-md row nav__autocomplete__div">
+      <div class="q-gutter-sm row nav__autocomplete__div">
         <q-select
-          borderless
-          :model-value="model"
+          label="Trouve une boutique"
+          behavior="menu"
           use-input
-          fill-input
+          borderless
           input-debounce="0"
-          :options="brandsData"
+          v-model="model"
+          :options="options"
           @filter="filterFn"
-          @input-value="brandsDataSelected"
         >
-          <template v-slot:controle>
+          <template v-slot:prepend>
+            <router-link to="/direction">
+              <img style="width: 50px" src="../assets/icone-gps.png" alt="gps" />
+            </router-link>
+            <router-link to="/">
+              <img style="width: 50px" src="../assets/icone-liste.png" alt="logo" />
+            </router-link>
+          </template>
+          <!-- <template v-slot:append>
+            <q-btn style="width: 50px" @click="goto(model)"></q-btn>
+          </template> -->
+          <template v-slot:no-option>
             <q-item>
               <q-item-section class="text-grey"> No results </q-item-section>
             </q-item>
           </template>
         </q-select>
-        <!-- <Autocomplete
-        :items="brandsData"
-        filterby="brands"
-        title="🔍"
-        @selected="brandsDataSelected" -->
-        <!-- /> -->
       </div>
     </div>
+    <q-btn style="width: 50px" @click="goto(model)"></q-btn>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .nav {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  align-self: center;
-  max-height: 10vh;
-  width: 80vw;
+  max-height: 7vh;
+  width: 85vw;
   border-radius: 1rem;
-  padding: 0.3rem;
-  margin-bottom: 1vh;
+  padding: 1%;
   background-color: $background;
-
-  &__btn {
-    display: flex;
-    flex-direction: row;
-
-    img {
-      width: 3rem;
-      height: 3rem;
-    }
-  }
+  display: flex;
+  flex-direction: row;
 
   &__autocomplete {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
     flex-grow: 3;
   }
@@ -71,26 +56,18 @@
 </style>
 
 <script>
-// import Autocomplete from '../components/Autocomplete';
 import { ref } from 'vue';
 import store from '../store/index';
 import dataString from '../utils/data';
 
 const brandsData = dataString.brands;
-const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'].reduce((acc, opt) => {
-  for (let i = 1; i <= 5; i += 1) {
-    acc.push(`${opt} ${i}`);
-  }
-  return acc;
-}, []);
+const stringOptions = brandsData;
 
 export default {
   name: 'NavC',
   props: ['brandName', 'filterBy'],
   store,
-  components: {
-    // Autocomplete,
-  },
+  components: {},
 
   mounted() {
     this.brandsData = brandsData;
@@ -104,8 +81,13 @@ export default {
       model,
       options,
 
-      // eslint-disable-next-line no-unused-vars
-      filterFn(val, update, abort) {
+      filterFn(val, update) {
+        if (val === '') {
+          update(() => {
+            options.value = stringOptions;
+          });
+          return;
+        }
         update(() => {
           const needle = val.toLocaleLowerCase();
           options.value = stringOptions.filter((v) => v.toLocaleLowerCase().indexOf(needle) > -1);
@@ -116,17 +98,17 @@ export default {
   data() {
     return {
       location: `/destination/`,
-      formData: {
-        brandName: '',
-      },
+      // eslint-disable-next-line vue/no-dupe-keys
+      brandName: '',
       brandsData: [],
     };
   },
 
   methods: {
     brandsDataSelected(brand) {
-      //   console.log(`Brand Selected:\n ${brand}`);
-      this.goto(brand);
+      console.log(`Brand Selected:\n ${brand}`);
+      console.log(this.brandName);
+      // this.goto(brand);
     },
 
     goto(name) {

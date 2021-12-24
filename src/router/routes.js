@@ -27,3 +27,13 @@ const routes = [
 ];
 
 export default routes;
+//  borderless
+// use-input
+// fill-input
+// input-debounce="0"
+// :model-value="model"
+// :options="brandsData"
+// @filter="filterFn"
+// @input-value="brandsDataSelected"
+// label="Trouve une boutique"
+// behavior="menu"
