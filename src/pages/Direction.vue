@@ -2,9 +2,9 @@
   <div class="me-diriger">
     <caroussel heigth="20vh" />
     <div class="me-diriger__center">
-      <!-- <div class="me-diriger__center__logo"> -->
-      <img id="logo" src="../assets/mapIn-logo-1.png" alt="logo" />
-      <!-- </div> -->
+      <div class="me-diriger__center__logo">
+        <img id="logo" src="../assets/mapIn-logo-1.png" alt="logo" />
+      </div>
 
       <div class="me-diriger__center__title">
         <h1 @click="goto">me diriger</h1>
@@ -27,30 +27,34 @@
     height: 80%;
 
     &__logo {
-      width: 100%;
-      height: 25%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
       & > img {
-        width: 65%;
+        width: 40rem;
+        margin: -10rem 0;
       }
     }
 
-    & #logo {
-      width: 65%;
-    }
-
     &__title {
+      width: 50vw;
       display: flex;
       justify-content: center;
-      padding-bottom: 2vh;
-      margin: auto;
+      align-items: center;
+      vertical-align: top;
 
       h1 {
-        background-color: $background;
-        border: 3px solid $secondary;
-        color: $primary;
-        border-radius: 0.5em;
+        margin: 0;
         padding: 0.7rem;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        background-color: $background;
+        color: $primary;
+        border: 4px solid $secondary;
+        border-radius: 0.5em;
       }
 
       h1:hover {
