@@ -3,82 +3,89 @@
     <caroussel heigth="20vh" />
     <div class="me-diriger__center">
       <div class="me-diriger__center__logo">
-        <img id="logo" src="../assets/mapIn-logo-1.png" alt="logo" />
+        <img
+          style="width: 90vw; margin: -0.7rem 0; align-items: center"
+          id="logo"
+          src="../assets/mapIn-logo-1.png"
+          alt="logo"
+        />
       </div>
 
       <div class="me-diriger__center__title">
-        <h1 @click="goto">me diriger</h1>
+        <h1>
+          <q-btn
+            flat
+            style="
+              padding: 0.7rem;
+              font-weight: 700;
+              font-size: 1.5rem;
+              margin: 0;
+              text-align: center;
+              vertical-align: center;
+            "
+            label="me diriger"
+            color="background"
+            @click="confirm = true"
+          />
+        </h1>
+        <q-dialog v-model="confirm" persistent>
+          <q-card>
+            <q-card-section class="row items-center">
+              <span style="font-size: 2rem" class="q-ml-sm">Informations utiles</span>
+            </q-card-section>
+            <UserInfo />
+          </q-card>
+        </q-dialog>
       </div>
     </div>
+    <caroussel style="position: fix; bottom: -3.7rem" heigth="20vh" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .me-diriger {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 
   &__center {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80%;
 
     &__logo {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
-      & > img {
-        width: 40rem;
-        margin: -10rem 0;
-      }
     }
 
     &__title {
-      width: 50vw;
+      width: 45vw;
+      height: 20vw;
       display: flex;
-      justify-content: center;
       align-items: center;
-      vertical-align: top;
-
-      h1 {
-        margin: 0;
-        padding: 0.7rem;
-        font-size: 2rem;
-        font-weight: 700;
-        text-align: center;
-        background-color: $background;
-        color: $primary;
-        border: 4px solid $secondary;
-        border-radius: 0.5em;
-      }
-
-      h1:hover {
-        border: 3px solid $primary;
-        background-color: $secondary;
-        color: $background;
-      }
-
-      h1:active {
-        background-color: $background;
-        color: $primary;
-      }
+      justify-content: center;
+      vertical-align: center;
+      background-color: $background;
+      color: $primary;
+      border: 4px solid $secondary;
+      border-radius: 2rem;
     }
   }
 }
 </style>
 
 <script>
+import { ref } from 'vue';
 import Caroussel from '../components/CarousselPub.vue';
+import UserInfo from '../components/UserInfo.vue';
 
 export default {
   name: 'Direction',
   components: {
     Caroussel,
+    UserInfo,
   },
 
   data() {
@@ -87,15 +94,10 @@ export default {
     };
   },
   setup() {
-    return {};
+    return {
+      confirm: ref(false),
+    };
   },
-  methods: {
-    toggleModale() {
-      this.revele = !this.revele;
-    },
-    goto() {
-      window.location.replace(`/`);
-    },
-  },
+  methods: {},
 };
 </script>

@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/direction',
     name: 'Direction',
-    component: () => import('../pages/Direction.vue'),
+    component: () => import('pages/Direction.vue'),
   },
   {
     path: '/destination/',

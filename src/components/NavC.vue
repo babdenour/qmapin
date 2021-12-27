@@ -13,16 +13,11 @@
           @filter="filterFn"
         >
           <template v-slot:prepend>
-            <router-link to="/direction">
-              <img style="width: 50px" src="../assets/icone-gps.png" alt="gps" />
-            </router-link>
             <router-link to="/">
               <img style="width: 50px" src="../assets/icone-liste.png" alt="logo" />
             </router-link>
           </template>
-          <!-- <template v-slot:append>
-            <q-btn style="width: 50px" @click="goto(model)"></q-btn>
-          </template> -->
+
           <template v-slot:no-option>
             <q-item>
               <q-item-section class="text-grey"> No results </q-item-section>
@@ -31,7 +26,9 @@
         </q-select>
       </div>
     </div>
-    <q-btn style="width: 50px" @click="goto(model)"></q-btn>
+    <q-btn style="width: 50px; border-radius: 1rem" @click="goto(model)"
+      ><img style="width: 40px" src="../assets/icone-gps.png" alt="gps"
+    /></q-btn>
   </div>
 </template>
 
@@ -105,14 +102,8 @@ export default {
   },
 
   methods: {
-    brandsDataSelected(brand) {
-      console.log(`Brand Selected:\n ${brand}`);
-      console.log(this.brandName);
-      // this.goto(brand);
-    },
-
     goto(name) {
-      window.location.replace(`/#${this.location}${name}`);
+      if (name) window.location.replace(`/#${this.location}${name}`);
     },
   },
 
