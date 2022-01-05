@@ -62,7 +62,6 @@ const stringOptions = brandsData;
 
 export default {
   name: 'NavC',
-  props: ['brandName', 'filterBy'],
   store,
   components: {},
 
@@ -94,16 +93,18 @@ export default {
   },
   data() {
     return {
-      location: `/destination/`,
-      // eslint-disable-next-line vue/no-dupe-keys
+      location: `/#/destination/`,
       brandName: '',
       brandsData: [],
     };
   },
 
   methods: {
-    goto(name) {
-      if (name) window.location.replace(`/#${this.location}${name}`);
+    goto(direction) {
+      if (direction) {
+        store.dispatch('setCurrentBrandName', direction);
+        window.location.replace(`${this.location}${direction}`);
+      }
     },
   },
 

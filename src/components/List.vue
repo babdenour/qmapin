@@ -8,9 +8,15 @@
               <q-list>
                 <q-item clickable v-ripple v-for="alpha in list.brand.alphabet" :key="alpha">
                   <q-expansion-item :label="alpha.letter">
-                    <q-item clickable v-ripple v-for="(brand, id) in alpha.brands" :key="id">
+                    <q-item
+                      clickable
+                      @click="gotoBrand(brand)"
+                      v-ripple
+                      v-for="(brand, id) in alpha.brands"
+                      :key="id"
+                    >
                       <q-item-section>
-                        <router-link :to="location + brand">{{ brand }}</router-link>
+                        {{ brand }}
                       </q-item-section>
                     </q-item>
                   </q-expansion-item>
@@ -31,14 +37,22 @@
 </style>
 
 <script>
+import store from 'src/store';
+
 export default {
   props: {
     data: Array,
   },
   data() {
     return {
-      location: `/destination/`,
+      location: `/#/destination/`,
     };
+  },
+  methods: {
+    gotoBrand(direction) {
+      store.dispatch('setCurrentBrandName', direction);
+      window.location.replace(`${this.location}${direction}`);
+    },
   },
 };
 </script>

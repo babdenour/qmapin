@@ -1,27 +1,43 @@
-import { store } from 'quasar/wrappers';
 import { createStore } from 'vuex';
 
-import example from './module-example';
-
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
-
-export default store((/* { ssrContext } */) => {
-  const Store = createStore({
-    modules: {
-      example,
+export default createStore({
+  state: {
+    destination: {
+      brandName: '',
+      brandCategory: '',
+      brandLetter: '',
+      lat: Number,
+      long: Number,
     },
 
-    // enable strict mode (adds overhead!)
-    // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING,
-  });
+    userGeoLoc: {
+      lat: Number,
+      long: Number,
+    },
+  },
 
-  return Store;
+  getters: {
+    getCurrentGeoLoc: (state) => state.userGeoLoc,
+    getCurrentDestinationName: (state) => state.destination.brandName,
+  },
+
+  mutations: {
+    UPDATE_CURRENT_GEOLOC: (state, userGeoLoc) => {
+      state.userGeoLoc.lat = userGeoLoc.lat;
+      state.userGeoLoc.long = userGeoLoc.long;
+    },
+    UPDATE_CURRENT_DESTINATION_NAME: (state, destination) => {
+      state.destination.brandName = destination;
+    },
+  },
+
+  actions: {
+    setCurrentGeoLoc: (store, currentGeoLoc) => {
+      store.commit('UPDATE_CURRENT_GEOLOC', currentGeoLoc);
+    },
+    setCurrentBrandName: (store, currentDestination) => {
+      store.commit('UPDATE_CURRENT_DESTINATION_NAME', currentDestination);
+    },
+  },
+  modules: {},
 });

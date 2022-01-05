@@ -1,6 +1,9 @@
 <template>
   <div class="me-diriger">
-    <caroussel heigth="20vh" />
+    <img
+      style="position: fix; top: 0; height: 18vh; width: 100%"
+      src="https://cdn.quasar.dev/img/mountains.jpg"
+    />
     <div class="me-diriger__center">
       <div class="me-diriger__center__logo">
         <img
@@ -12,22 +15,20 @@
       </div>
 
       <div class="me-diriger__center__title">
-        <h1>
-          <q-btn
-            flat
-            style="
-              padding: 0.7rem;
-              font-weight: 700;
-              font-size: 1.5rem;
-              margin: 0;
-              text-align: center;
-              vertical-align: center;
-            "
-            label="me diriger"
-            color="background"
-            @click="confirm = true"
-          />
-        </h1>
+        <q-btn
+          flat
+          style="
+            padding: 0.7rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: center;
+            vertical-align: center;
+          "
+          label="me diriger"
+          color="background"
+          @click="confirm = true"
+        />
         <q-dialog v-model="confirm" persistent>
           <q-card>
             <q-card-section class="row items-center">
@@ -38,7 +39,10 @@
         </q-dialog>
       </div>
     </div>
-    <caroussel style="position: fix; bottom: -3.7rem" heigth="20vh" />
+    <img
+      style="position: fix; bottom: -3.7rem; height: 20vh; width: 100%"
+      src="https://cdn.quasar.dev/img/mountains.jpg"
+    />
   </div>
 </template>
 
@@ -77,16 +81,33 @@
 </style>
 
 <script>
+import store from 'src/store';
 import { ref } from 'vue';
-import Caroussel from '../components/CarousselPub.vue';
 import UserInfo from '../components/UserInfo.vue';
+
+function faireQqc(lat, long) {
+  const userGeoLoc = {
+    lat: Number,
+    long: Number,
+  };
+
+  userGeoLoc.lat = lat;
+  userGeoLoc.long = long;
+
+  store.dispatch('setCurrentGeoLoc', userGeoLoc);
+}
+
+// eslint-disable-next-line func-names
+navigator.geolocation.getCurrentPosition(function (position) {
+  faireQqc(position.coords.latitude, position.coords.longitude);
+});
 
 export default {
   name: 'Direction',
   components: {
-    Caroussel,
     UserInfo,
   },
+  store,
 
   data() {
     return {

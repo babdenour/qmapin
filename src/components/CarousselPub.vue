@@ -1,6 +1,6 @@
 <template>
   <q-carousel
-    :height="heigth"
+    :height="height"
     swipeable
     animated
     v-model="slide"
@@ -29,7 +29,7 @@ export default {
     };
   },
   props: {
-    heigth: String,
+    height: String,
   },
 };
 </script>

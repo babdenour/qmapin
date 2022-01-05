@@ -8,5 +8,9 @@ export default function () {
         brandLetter: '',
       },
     ],
+    userGeoLoc: {
+      lat: Number,
+      long: Number,
+    },
   };
 }

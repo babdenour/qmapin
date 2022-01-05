@@ -2,13 +2,13 @@
   <div class="q-pa-md" style="max-width: 300px">
     <form @submit.prevent.stop="onSubmit" @reset.prevent.stop="onReset" class="q-gutter-md">
       <q-input
-        ref="nameRef"
+        ref="emailRef"
         filled
-        v-model="name"
-        label="Your name *"
-        hint="Name and surname"
+        v-model="email"
+        label="Your email *"
+        hint="Email"
         lazy-rules
-        :rules="nameRules"
+        :rules="emailRules"
       />
 
       <q-select
@@ -21,24 +21,11 @@
 
       <q-input
         filled
+        v-model="age"
+        mask="##/##/####"
         label="Your birthdate *"
-        v-model="date"
-        mask="date"
-        :rules="['date']"
         hint="Your birthdate"
-      >
-        <template v-slot:append>
-          <q-icon name="event" class="cursor-pointer">
-            <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
-              <q-date v-model="date">
-                <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Close" color="primary" flat />
-                </div>
-              </q-date>
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
+      />
 
       <q-toggle v-model="accept" label="I accept the license and terms" />
 
@@ -62,8 +49,8 @@ export default {
 
     const sex = ref(null);
 
-    const name = ref(null);
-    const nameRef = ref(null);
+    const email = ref(null);
+    const emailRef = ref(null);
 
     const age = ref(null);
     const ageRef = ref(null);
@@ -72,11 +59,9 @@ export default {
     const submitResult = ref([]);
 
     return {
-      date: ref('2019/02/01'),
-
-      name,
-      nameRef,
-      nameRules: [(val) => (val && val.length > 0) || 'Please type something'],
+      email,
+      emailRef,
+      emailRules: [(val) => (val && val.length > 0) || 'Please type something'],
 
       sex,
       sexType: ['male', 'female'],
@@ -94,28 +79,29 @@ export default {
 
       sendUser() {
         const userInfo = {
-          sex: 'mal | femel',
-          age: Number,
-          email: 'test@test.com',
+          gender: sex.value,
+          age: age.value,
+          email: email.value,
         };
-        axios
-          .post('', userInfo)
-          // eslint-disable-next-line no-return-assign
-          .then((response) => (this.userInfoId = response.data.id))
-          .catch((error) => {
-            this.errorMessage = error.message;
-            // eslint-disable-next-line no-console
-            console.error('There was an error!', error);
-          });
-        // eslint-disable-next-line no-console
-        console.log('ici');
+        if (accept.value) {
+          axios
+            .post('http://localhost:3000/user', userInfo)
+            // eslint-disable-next-line no-return-assign
+            .then((response) => (this.userInfoId = response.data.id))
+            .catch((error) => {
+              this.errorMessage = error.message;
+              // eslint-disable-next-line no-console
+              console.error('There was an error!', error);
+            });
+          setTimeout(1000, window.location.replace(`/`));
+        }
       },
 
       onSubmit() {
-        nameRef.value.validate();
+        emailRef.value.validate();
         ageRef.value.validate();
 
-        if (nameRef.value.hasError || ageRef.value.hasError) {
+        if (emailRef.value.hasError || ageRef.value.hasError) {
           // form has error
         } else if (accept.value !== true) {
           $q.notify({
@@ -135,18 +121,13 @@ export default {
       },
 
       onReset() {
-        name.value = null;
+        email.value = null;
         age.value = null;
 
-        nameRef.value.resetValidation();
+        emailRef.value.resetValidation();
         ageRef.value.resetValidation();
       },
     };
-  },
-  methods: {
-    goto() {
-      window.location.replace(`/`);
-    },
   },
 };
 </script>
