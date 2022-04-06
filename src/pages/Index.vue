@@ -32,12 +32,15 @@ export default defineComponent({
 .box {
   position: fixed;
   top: 50px;
-  overflow: auto;
+  overflow: scroll;
   margin-top: 1rem;
   max-height: 500px;
 }
-
-.list {
-  overflow: auto;
+.box::-webkit-scrollbar {
+  display: none;
+}
+.box {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
