@@ -6,6 +6,10 @@
   "author": "babdenour <abde1802@hotmail.fr>",
   "private": true,
   "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "build redirect": "quasar build && echo \"/* /index.html  200\" > ./dist/spa/_redirects",
+    "build:pwa": "quasar build -m pwa",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -15,11 +19,13 @@
     "core-js": "^3.6.5",
     "crc-32": "^1.2.0",
     "quasar": "^2.0.0",
+    "vue2-google-maps": "^0.10.7",
     "vuex": "^4.0.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "eslint": "^7.14.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^8.3.0",

@@ -1,13 +1,13 @@
 <template>
   <div class="me-diriger">
     <img
-      style="position: fix; top: 0; height: 18vh; width: 100%"
+      style="position: fix; top: 0; height: 20vh; width: 100%"
       src="https://cdn.quasar.dev/img/mountains.jpg"
     />
     <div class="me-diriger__center">
       <div class="me-diriger__center__logo">
         <img
-          style="width: 90vw; margin: -0.7rem 0; align-items: center"
+          style="width: 90vw; margin: -4.5rem 0; align-items: center"
           id="logo"
           src="../assets/mapIn-logo-1.png"
           alt="logo"
@@ -40,7 +40,7 @@
       </div>
     </div>
     <img
-      style="position: fix; bottom: -3.7rem; height: 20vh; width: 100%"
+      style="position: fixed; bottom: 0; height: 20vh; width: 100%"
       src="https://cdn.quasar.dev/img/mountains.jpg"
     />
   </div>
@@ -85,7 +85,7 @@ import store from 'src/store';
 import { ref } from 'vue';
 import UserInfo from '../components/UserInfo.vue';
 
-function faireQqc(lat, long) {
+function sendUserGeoLoc(lat, long) {
   const userGeoLoc = {
     lat: Number,
     long: Number,
@@ -98,8 +98,8 @@ function faireQqc(lat, long) {
 }
 
 // eslint-disable-next-line func-names
-navigator.geolocation.getCurrentPosition(function (position) {
-  faireQqc(position.coords.latitude, position.coords.longitude);
+navigator.geolocation.getCurrentPosition((position) => {
+  sendUserGeoLoc(position.coords.latitude, position.coords.longitude);
 });
 
 export default {
@@ -110,9 +110,7 @@ export default {
   store,
 
   data() {
-    return {
-      revele: false,
-    };
+    return {};
   },
   setup() {
     return {
