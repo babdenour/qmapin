@@ -34,7 +34,7 @@
 
 <style lang="scss" scoped>
 .nav {
-  max-height: 7vh;
+  max-height: 8vh;
   width: 85vw;
   border-radius: 1rem;
   padding: 1%;

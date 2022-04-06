@@ -27,6 +27,7 @@
   align-self: center;
   justify-self: stretch;
   z-index: 99;
+  margin-top: 0.2rem;
 }
 </style>
 
